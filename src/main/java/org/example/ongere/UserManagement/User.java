@@ -29,11 +29,8 @@ public class User implements UserDetails {
 
     private String lastName;
 
-    private Integer countryCode;
+    private String phoneNumber;
 
-    private Long phoneNumber;
-
-    private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -47,7 +44,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return phoneNumber;
     }
 
     @Override

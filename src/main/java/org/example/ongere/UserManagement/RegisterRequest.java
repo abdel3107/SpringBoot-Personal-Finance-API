@@ -15,11 +15,7 @@ public class RegisterRequest {
 
     private String lastName;
 
-    private Integer countryCode;
-
-    private Long phoneNumber;
-
-    private String email;
+    private String phoneNumber;
 
     private String password;
 }

@@ -33,7 +33,7 @@ public class PhoneNumberVerificationController {
 
 
         Verification verification = Verification.creator (
-                        "VA0276acb344e81f69f32a811442cf8fd5", // this is your verification sid
+                        "VA55065eaf599fd9c32991cfb53d9e1486", // this is your verification sid
                         "+"+phoneNumber, //this is your Twilio verified recipient phone number
                         "sms") // this is your channel type
                 .create();
@@ -54,7 +54,7 @@ public class PhoneNumberVerificationController {
 
         try {
             VerificationCheck verificationCheck = VerificationCheck.creator(
-                            "VA0276acb344e81f69f32a811442cf8fd5")
+                            "VA55065eaf599fd9c32991cfb53d9e1486")
                     .setTo("+"+phoneNumber)
                     .setCode(code)
                     .create();
