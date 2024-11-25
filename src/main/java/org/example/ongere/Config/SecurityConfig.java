@@ -1,6 +1,5 @@
 package org.example.ongere.Config;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +24,11 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF protection for APIs
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// Make session stateless
-                .authorizeHttpRequests(ar->ar.requestMatchers("/api/v1/auth/**").permitAll())
-                .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
+                .authorizeHttpRequests(ar -> ar.requestMatchers("/api/v1/auth/**").permitAll())
+                .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         ;
-
 
 
         // Add JWT filter (not implemented here - should validate tokens on each request)
@@ -38,4 +36,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

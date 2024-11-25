@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.example.ongere.UserManagement.User;
+import org.example.ongere.UserManagement.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private static final String SECRET_KEY = "55683fa211aab185e9af6da6f6356036e4b3a50b7df9d9b38625d72415b67c26";
+    private final UserRepository userRepository;
+
+    public JwtService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -33,9 +41,12 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
+        String phone = userDetails.getUsername();
+        User user = userRepository.findByPhoneNumber(phone).orElseThrow();
         return Jwts
                 .builder()
                 .claims(extraClaims)
+                .claim("user_id", user.getId())
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000*60*24))
