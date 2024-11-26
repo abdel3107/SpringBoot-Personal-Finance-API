@@ -2,6 +2,7 @@ package org.example.ongere.Transaction.Services.Implementations;
 
 import org.example.ongere.Transaction.DTOs.Mappers.TransactionMapper;
 import org.example.ongere.Transaction.DTOs.RequestDTOs.TransactionRequestDTO;
+import org.example.ongere.Transaction.DTOs.ResponseDTO.TransactionResponseDTO;
 import org.example.ongere.Transaction.Entities.Income;
 import org.example.ongere.Transaction.Entities.IncomeCategory;
 import org.example.ongere.Transaction.Repositories.IncomeCategoryRepository;
@@ -55,7 +56,19 @@ public class IncomeServiceImplementation implements IncomeService {
     }
 
     @Override
-    public List<Income> getAllIncome() {
-        return incomeRepository.findAll();
+    public List<TransactionResponseDTO> getAllIncome() {
+        List<TransactionResponseDTO> transactionResponseDTOS = incomeRepository.findAll()
+                .stream()
+                .map(transactionMapper::mapToIncomeResponseDTO)
+                .toList();
+        return transactionResponseDTOS;
+    }
+
+    @Override
+    public double getTotalIncome() {
+        return incomeRepository.findAll()
+                .stream()
+                .mapToDouble(Income::getAmount)
+                .sum();
     }
 }

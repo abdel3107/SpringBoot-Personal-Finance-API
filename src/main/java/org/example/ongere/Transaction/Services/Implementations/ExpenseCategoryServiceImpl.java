@@ -2,6 +2,7 @@ package org.example.ongere.Transaction.Services.Implementations;
 
 import org.example.ongere.Transaction.DTOs.Mappers.CategoryMapper;
 import org.example.ongere.Transaction.DTOs.RequestDTOs.CategoryRequestDTO;
+import org.example.ongere.Transaction.DTOs.ResponseDTO.CategoryResponseDTO;
 import org.example.ongere.Transaction.Entities.ExpenseCategory;
 import org.example.ongere.Transaction.Repositories.ExpenseCategoryRepository;
 import org.example.ongere.Transaction.Services.ExpenseCategoryService;
@@ -42,7 +43,11 @@ public class ExpenseCategoryServiceImpl implements ExpenseCategoryService {
     }
 
     @Override
-    public List<ExpenseCategory> getAllExpenseCategories() {
-        return expenseCategoryRepository.findAll();
+    public List<CategoryResponseDTO> getAllExpenseCategories() {
+        List<CategoryResponseDTO> categoryResponseDTOS = expenseCategoryRepository.findAll()
+                .stream()
+                .map(categoryMapper::mapToExpenseCategoryResponseDTO)
+                .toList();
+        return categoryResponseDTOS;
     }
 }

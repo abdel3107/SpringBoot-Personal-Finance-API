@@ -2,6 +2,7 @@ package org.example.ongere.Transaction.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.ongere.Transaction.DTOs.RequestDTOs.TransactionRequestDTO;
+import org.example.ongere.Transaction.DTOs.ResponseDTO.TransactionResponseDTO;
 import org.example.ongere.Transaction.Entities.Income;
 import org.example.ongere.Transaction.Services.IncomeService;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class IncomeController {
     }
 
     @GetMapping
-    public List<Income> getAllIncome() {
+    public List<TransactionResponseDTO> getAllIncome() {
         return incomeService.getAllIncome();
     }
 
@@ -40,6 +41,11 @@ public class IncomeController {
             @RequestBody Income income
     ) {
         incomeService.updateIncome(income, incomeId);
+    }
+
+    @GetMapping("/total")
+    public double getTotalIncome() {
+        return incomeService.getTotalIncome();
     }
 
 }

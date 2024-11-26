@@ -2,6 +2,7 @@ package org.example.ongere.Transaction.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.ongere.Transaction.DTOs.RequestDTOs.TransactionRequestDTO;
+import org.example.ongere.Transaction.DTOs.ResponseDTO.TransactionResponseDTO;
 import org.example.ongere.Transaction.Entities.Expense;
 import org.example.ongere.Transaction.Services.ExpenseService;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,13 @@ public class ExpenseController {
     }
 
     @GetMapping
-    public List<Expense> getAllExpenses() {
+    public List<TransactionResponseDTO> getAllExpenses() {
         return expenseService.getAllExpenses();
+    }
+
+    @GetMapping("/total")
+    public double getTotalExpense() {
+        return expenseService.getTotalExpense();
     }
 
 }
